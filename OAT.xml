@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2023 Huawei Device Co., Ltd.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+
+    This is the configuration file template for OpenHarmony OSS Audit Tool, please copy it to your project root dir and modify it refer to OpenHarmony/tools_oat/README.
+
+-->
+
+<configuration>
+    <oatconfig>
+        <licensefile>COPYING</licensefile>
+        <licensefile>COPYING-GPLV2</licensefile>
+        <licensefile>COPYING-LGPLV3</licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="backends/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libdw/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="debuginfod/.*.[c|cxx]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="debuginfod/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="lib/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libasm/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libcpu/.*.[c|h|l|y]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libdwelf/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libebl/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libdwfl/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libelf/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="src/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="tests/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="GPL-3.0-or-later" path="libcpu/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="version.h" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
+            </policy>
+        </policylist>
+        <filefilterlist>
+            <filefilter name="defaultFilter" desc="Files not to check">
+                <filteritem type="filepath" name="config/compile" desc="编译指导的文本文件，无影响"/>
+                <filteritem type="filepath" name="config/config.guess" desc="实际未使用"/>
+                <filteritem type="filepath" name="config/depcomp" desc="实际未使用"/>
+                <filteritem type="filepath" name="config/known-dwarf.awk" desc="实际未使用"/>
+                <filteritem type="filepath" name="config/missing" desc="实际未使用"/>
+                <filteritem type="filepath" name="config/test-driver" desc="实际未使用"/>
+                <filteritem type="filepath" name="config/ylwrap" desc="实际未使用"/>
+                <filteritem type="filepath" name="config/ar-lib" desc="实际未使用"/>
+                <filteritem type="filepath" name="config/config.sub" desc="实际未使用"/>
+                <filteritem type="filepath" name="m4/.*.m4" desc="实际未使用"/>
+                <filteritem type="filepath" name=".*.am" desc="实际未使用"/>
+                <filteritem type="filepath" name="po/.*.po" desc="实际未使用"/>
+                <filteritem type="filepath" name="po/insert-header.sin" desc="实际未使用"/>
+                <filteritem type="filepath" name="po/.*.pot" desc="实际未使用"/>
+                <filteritem type="filepath" name="po/Rules-quot" desc="实际未使用"/>
+                <filteritem type="filepath" name="CONTRIBUTING" desc="实际未使用"/>
+                <filteritem type="filepath" name="elfutils.spec" desc="实际未使用"/>
+                <filteritem type="filepath" name="INSTALL" desc="实际未使用"/>
+                <filteritem type="filepath" name="configure.ac" desc="实际未使用"/>
+                <filteritem type="filepath" name="COPYING" desc="实际未使用"/>
+                <filteritem type="filepath" name="COPYING-GPLV2" desc="实际未使用"/>
+                <filteritem type="filepath" name="COPYING-LGPLV3" desc="实际未使用"/>
+                <filteritem type="filepath" name="doc/COPYING-GFDL" desc="实际未使用"/>
+                <filteritem type="filepath" name="tests/debuginfod-rpms/hello2.spec" desc="实际未使用"/>
+            </filefilter>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+            </filefilter>
+            <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
+            </filefilter>
+            <filefilter name="licenseFileNamePolicyFilter" desc="Filters for LICENSE file policies">
+            </filefilter>
+            <filefilter name="readmeFileNamePolicyFilter" desc="Filters for README file policies">
+            </filefilter>
+            <filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies">
+            </filefilter>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
+                <filteritem type="filepath" name="po/.*.gmo" desc="语言配置文件，未使用" />
+                <filteritem type="filepath" name="tests/.*.bz2" desc="test files" />
+                <filteritem type="filepath" name="tests/.*.rpm" desc="test files" />
+                <filteritem type="filepath" name="tests/.*.tar.*" desc="test files" />
+                <filteritem type="filepath" name="tests/.*.deb" desc="test files" />
+                <filteritem type="filepath" name="tests/.*.ddeb" desc="test files" />
+            </filefilter>
+
+        </filefilterlist>
+        <licensematcherlist>
+        </licensematcherlist>
+    </oatconfig>
+</configuration>

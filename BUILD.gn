@@ -36,6 +36,7 @@ ohos_static_library("libelf_static") {
 
   deps = [ "//third_party/zlib:libz" ]
 
+  license_file = "COPYING-LGPLV3"
   subsystem_name = "thirdparty"
   part_name = "elfutils"
 }
@@ -51,6 +52,7 @@ ohos_shared_library("libelf") {
     "system",
     "updater",
   ]
+  license_file = "COPYING-LGPLV3"
 }
 
 # Build libdw
@@ -78,6 +80,7 @@ ohos_static_library("libdw_static") {
 
   deps = [ ":libelf_static" ]
 
+  license_file = "COPYING-LGPLV3"
   subsystem_name = "thirdparty"
   part_name = "elfutils"
 }
@@ -93,4 +96,5 @@ ohos_shared_library("libdw") {
     "system",
     "updater",
   ]
+  license_file = "COPYING-LGPLV3"
 }

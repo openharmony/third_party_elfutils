@@ -2,14 +2,14 @@
     "name": "@ohos/elfutils",
     "description": "elfutils is a collection of utilities and libraries to read, create and modify ELF binary files, find and handle DWARF debug data, symbols, thread state and stacktraces for processes and core files on GNU/Linux.",
     "version": "0.185",
-    "license": "GPL",
+    "license": "LGPL V2.1,LGPL V3 or GPL v2",
     "publishAs": "code-segment",
     "segment": {
         "destPath": "third_party/elfutils"
     },
     "dirs": {},
     "scripts": {},
-	"licensePath": "COPYING",
+	"licensePath": "COPYING-LGPLV3",
 	"readmePath": {
         "en": "README"
     },

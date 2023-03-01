@@ -41,20 +41,6 @@ ohos_static_library("libelf_static") {
   part_name = "elfutils"
 }
 
-ohos_shared_library("libelf") {
-  deps = [ ":libelf_static" ]
-  subsystem_name = "thirdparty"
-  part_name = "elfutils"
-  if (is_ohos) {
-    output_extension = "so"
-  }
-  install_images = [
-    "system",
-    "updater",
-  ]
-  license_file = "COPYING-LGPLV3"
-}
-
 # Build libdw
 ohos_static_library("libdw_static") {
   configs = [ ":elfutils_defaults" ]
@@ -83,18 +69,4 @@ ohos_static_library("libdw_static") {
   license_file = "COPYING-LGPLV3"
   subsystem_name = "thirdparty"
   part_name = "elfutils"
-}
-
-ohos_shared_library("libdw") {
-  deps = [ ":libdw_static" ]
-  subsystem_name = "thirdparty"
-  part_name = "elfutils"
-  if (is_ohos) {
-    output_extension = "so"
-  }
-  install_images = [
-    "system",
-    "updater",
-  ]
-  license_file = "COPYING-LGPLV3"
 }

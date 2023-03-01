@@ -24,54 +24,22 @@
         <licensefile>COPYING-LGPLV3</licensefile>
         <policylist>
             <policy name="projectPolicy" desc="">
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="backends/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="libdw/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="GPLStyleLicense" path="debuginfod/.*.[c|cxx]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="debuginfod/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="lib/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="libasm/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="libcpu/.*.[c|h|l|y]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="libdwelf/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="libebl/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="libdwfl/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="libelf/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="GPLStyleLicense" path="src/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="GPLStyleLicense" path="tests/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="GPL-3.0-or-later" path="libcpu/.*.[c|h]" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="compatibility" name="LGPLStyleLicense" path="version.h" desc="host侧工具，用作编译时的检查，不随镜像发布到产品"/>
-                <policyitem type="license" name="*" path="libcpu/.*.mnemonics" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter" desc="三方开源软件不需要检测"/>
-                <policyitem type="license" name="*" path="libcpu/.*_dis.h" rule="may" group="defaultGroup" filefilter="defaultPolicyFilter" desc="三方开源软件不需要检测"/>
-                <policyitem type="copyright" name="*" path="libcpu/.*.mnemonics" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="三方开源软件不需要检测"/>
-                <policyitem type="copyright" name="*" path="libcpu/.*_dis.h" rule="may" group="defaultGroup" filefilter="copyrightPolicyFilter" desc="三方开源软件不需要检测"/>
             </policy>
         </policylist>
         <filefilterlist>
             <filefilter name="defaultFilter" desc="Files not to check">
-                <filteritem type="filepath" name="config/compile" desc="编译指导的文本文件，无影响"/>
-                <filteritem type="filepath" name="config/config.guess" desc="实际未使用"/>
-                <filteritem type="filepath" name="config/depcomp" desc="实际未使用"/>
-                <filteritem type="filepath" name="config/known-dwarf.awk" desc="实际未使用"/>
-                <filteritem type="filepath" name="config/missing" desc="实际未使用"/>
-                <filteritem type="filepath" name="config/test-driver" desc="实际未使用"/>
-                <filteritem type="filepath" name="config/ylwrap" desc="实际未使用"/>
-                <filteritem type="filepath" name="config/ar-lib" desc="实际未使用"/>
-                <filteritem type="filepath" name="config/config.sub" desc="实际未使用"/>
-                <filteritem type="filepath" name="m4/.*.m4" desc="实际未使用"/>
-                <filteritem type="filepath" name=".*.am" desc="实际未使用"/>
-                <filteritem type="filepath" name="po/.*.po" desc="实际未使用"/>
-                <filteritem type="filepath" name="po/insert-header.sin" desc="实际未使用"/>
-                <filteritem type="filepath" name="po/.*.pot" desc="实际未使用"/>
-                <filteritem type="filepath" name="po/Rules-quot" desc="实际未使用"/>
-                <filteritem type="filepath" name="CONTRIBUTING" desc="实际未使用"/>
-                <filteritem type="filepath" name="elfutils.spec" desc="实际未使用"/>
-                <filteritem type="filepath" name="INSTALL" desc="实际未使用"/>
-                <filteritem type="filepath" name="configure.ac" desc="实际未使用"/>
-                <filteritem type="filepath" name="COPYING" desc="实际未使用"/>
-                <filteritem type="filepath" name="COPYING-GPLV2" desc="实际未使用"/>
-                <filteritem type="filepath" name="COPYING-LGPLV3" desc="实际未使用"/>
-                <filteritem type="filepath" name="doc/COPYING-GFDL" desc="实际未使用"/>
-                <filteritem type="filepath" name="tests/debuginfod-rpms/hello2.spec." desc="实际未使用"/>
-                <filteritem type="filepath" name="tests/debuginfod-rpms/hello3.spec." desc="实际未使用"/>
+                <filteritem type="filepath" name="config/known-dwarf.awk" desc="awk脚本文件"/>
+                <filteritem type="filepath" name="m4/.*.m4" desc="m4脚本文件"/>
+                <filteritem type="filepath" name=".*.am" desc="生成Makefile的模板"/>
+                <filteritem type="filepath" name="po/.*.po" desc="语言相关配置文件"/>
+                <filteritem type="filepath" name="CONTRIBUTING" desc="贡献代码指南"/>
+                <filteritem type="filepath" name="configure.ac" desc="config配置脚本"/>
+                <filteritem type="filepath" name="COPYING" desc="license文件"/>
+                <filteritem type="filepath" name="COPYING-GPLV2" desc="license文件"/>
+                <filteritem type="filepath" name="COPYING-LGPLV3" desc="license文件"/>
+                <filteritem type="filepath" name="doc/COPYING-GFDL" desc="license文件"/>
+                <filteritem type="filepath" name="tests/debuginfod-rpms/hello2.spec." desc="用于测试的文件"/>
+                <filteritem type="filepath" name="tests/debuginfod-rpms/hello3.spec." desc="用于测试的文件"/>
             </filefilter>
             <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
             </filefilter>
@@ -84,8 +52,7 @@
             <filefilter name="readmeOpenSourcefileNamePolicyFilter" desc="Filters for README.OpenSource file policies">
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
-                <filteritem type="filepath" name="po/.*.gmo" desc="语言配置文件，未使用" />
-                <filteritem type="filepath" name="libcpu/defs/i386.doc" desc="实际未使用" />
+                <filteritem type="filepath" name="libcpu/defs/i386.doc" desc="doc文档，实际未使用" />
                 <filteritem type="filepath" name="tests/.*.bz2" desc="test files" />
                 <filteritem type="filepath" name="tests/.*.rpm" desc="test files" />
                 <filteritem type="filepath" name="tests/.*.tar.*" desc="test files" />

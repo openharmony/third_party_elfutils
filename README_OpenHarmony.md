@@ -122,4 +122,4 @@ ohos_static_library("libabigail_static") {
 
 ## 风险提示
 
-**<u>‍elfutils是LGPL和GPL许可证的三方开源软件，请谨慎使用，使用时须履行相应的开源义务。</u>**
+**<u>‍elfutils是LGPLV3和GPLV3协议类型的三方开源软件，请谨慎使用，使用时须履行相应的开源义务。</u>**

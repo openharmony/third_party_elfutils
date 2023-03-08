@@ -22,6 +22,10 @@ config("elfutils_defaults") {
   ]
 }
 
+config("elfutils_public_config") {
+  include_dirs = [ "include" ]
+}
+
 # Build libelf
 ohos_static_library("libelf_static") {
   configs = [ ":elfutils_defaults" ]
@@ -63,6 +67,8 @@ ohos_static_library("libdw_static") {
     "//third_party/elfutils/libdwfl",
     "//third_party/elfutils/libebl",
   ]
+
+  public_configs = [ ":elfutils_public_config" ]
 
   deps = [ ":libelf_static" ]
 

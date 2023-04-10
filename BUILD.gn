@@ -20,6 +20,8 @@ config("elfutils_defaults") {
     "_GNU_SOURCE",
     "NMNES=1000",
   ]
+
+  cflags = [ "-std=gnu99" ]
 }
 
 config("elfutils_public_config") {

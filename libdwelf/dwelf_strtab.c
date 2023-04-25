@@ -37,7 +37,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 #include "libdwelfP.h"
 #include <system.h>
@@ -91,8 +90,7 @@ dwelf_strtab_init (bool nullstr)
       assert (sizeof (struct memoryblock) < ps - MALLOC_OVERHEAD);
     }
 
-  Dwelf_Strtab *ret
-    = (Dwelf_Strtab *) calloc (1, sizeof (struct Dwelf_Strtab));
+  Dwelf_Strtab *ret = calloc (1, sizeof (struct Dwelf_Strtab));
   if (ret != NULL)
     {
       ret->nullstr = nullstr;
@@ -117,7 +115,7 @@ morememory (Dwelf_Strtab *st, size_t len)
   /* Allocate nearest multiple of pagesize >= len.  */
   len = ((len / ps) + (len % ps != 0)) * ps - MALLOC_OVERHEAD;
 
-  struct memoryblock *newmem = (struct memoryblock *) malloc (len);
+  struct memoryblock *newmem = malloc (len);
   if (newmem == NULL)
     return 1;
 

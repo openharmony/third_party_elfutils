@@ -32,10 +32,8 @@
 #endif
 
 #include <errno.h>
-#include <unistd.h>
 #include <sys/stat.h>
 
-#include <system.h>
 #include "libelfP.h"
 #include "common.h"
 
@@ -107,7 +105,7 @@ __libelf_readall (Elf *elf)
 	}
 
       /* Allocate all the memory we need.  */
-      mem = (char *) malloc (elf->maximum_size);
+      mem = malloc (elf->maximum_size);
       if (mem != NULL)
 	{
 	  /* Read the file content.  */

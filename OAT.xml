@@ -25,6 +25,19 @@
         <policylist>
             <policy name="projectPolicy" desc="">
                 <policyitem type="compatibility" name="LGPLStyleLicense" path="include/elfutils/libdwfl.h" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="backends/.*.[h|c]" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="lib/.*.[h|c]" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libasm/.*.[h|c]" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libcpu/.*.[h|c|l|y]" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libdw/.*.[h|c]" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libdwelf/.*.[h|c]" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libdwfl/.*.[h|c]" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libebl/.*.[h|c]" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="libelf/.*.[h|c]" desc="该软件作为独立进程使用"/>
+                <policyitem type="compatibility" name="LGPLStyleLicense" path="debuginfod/.*" desc="该目录下软件未编译使用"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="debuginfod/.*" desc="该目录下软件未编译使用"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="src/.*.[h|c]" desc="该目录下软件未编译使用"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="tests/.*.[h|c|sh]" desc="该目录下软件未编译使用"/>
             </policy>
         </policylist>
         <filefilterlist>

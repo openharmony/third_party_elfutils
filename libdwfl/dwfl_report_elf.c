@@ -32,8 +32,6 @@
 
 #include "libdwflP.h"
 #include <fcntl.h>
-#include <unistd.h>
-
 
 /* We start every ET_REL module at a moderately aligned boundary.
    This keeps the low addresses easy to read compared to a layout
@@ -287,6 +285,7 @@ __libdwfl_report_elf (Dwfl *dwfl, const char *name, const char *file_name,
   return m;
 }
 
+NEW_VERSION (dwfl_report_elf, ELFUTILS_0.156)
 Dwfl_Module *
 dwfl_report_elf (Dwfl *dwfl, const char *name, const char *file_name, int fd,
 		 GElf_Addr base, bool add_p_vaddr)
@@ -322,8 +321,7 @@ dwfl_report_elf (Dwfl *dwfl, const char *name, const char *file_name, int fd,
 
   return mod;
 }
-INTDEF (dwfl_report_elf)
-NEW_VERSION (dwfl_report_elf, ELFUTILS_0.156)
+NEW_INTDEF (dwfl_report_elf)
 
 #ifdef SYMBOL_VERSIONING
 Dwfl_Module *

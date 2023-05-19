@@ -30,9 +30,6 @@
 #ifndef _COMMON_H
 #define _COMMON_H       1
 
-#include <ar.h>
-#include <byteswap.h>
-#include <endian.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -71,7 +68,7 @@ __attribute__ ((unused))
 allocate_elf (int fildes, void *map_address, int64_t offset, size_t maxsize,
               Elf_Cmd cmd, Elf *parent, Elf_Kind kind, size_t extra)
 {
-  Elf *result = (Elf *) calloc (1, sizeof (Elf) + extra);
+  Elf *result = calloc (1, sizeof (Elf) + extra);
   if (result == NULL)
     __libelf_seterrno (ELF_E_NOMEM);
   else
@@ -154,7 +151,7 @@ libelf_release_all (Elf *elf)
 		 : bswap_64 (Var))))
 
 
-#if __BYTE_ORDER == __LITTLE_ENDIAN
+#if BYTE_ORDER == LITTLE_ENDIAN
 # define MY_ELFDATA	ELFDATA2LSB
 #else
 # define MY_ELFDATA	ELFDATA2MSB

@@ -32,7 +32,6 @@
 #endif
 
 #include <assert.h>
-#include <libintl.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -181,7 +180,7 @@ asm_newscn (AsmCtx_t *ctx, const char *scnname, GElf_Word type,
   rwlock_wrlock (ctx->lock);
 
   /* This is a new section.  */
-  result = (AsmScn_t *) malloc (sizeof (AsmScn_t) + scnname_len);
+  result = malloc (sizeof (AsmScn_t) + scnname_len);
   if (result != NULL)
     {
       /* Add the name.  */

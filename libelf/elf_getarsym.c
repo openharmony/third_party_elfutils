@@ -32,16 +32,12 @@
 #endif
 
 #include <assert.h>
-#include <byteswap.h>
-#include <endian.h>
 #include <errno.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
-#include <system.h>
 #include <dl-hash.h>
 #include "libelfP.h"
 
@@ -65,7 +61,7 @@ read_number_entries (uint64_t *nump, Elf *elf, size_t *offp, bool index64_p)
 
   *offp += w;
 
-  if (__BYTE_ORDER == __LITTLE_ENDIAN)
+  if (BYTE_ORDER == LITTLE_ENDIAN)
     *nump = index64_p ? bswap_64 (u.ret64) : bswap_32 (u.ret32);
   else
     *nump = index64_p ? u.ret64 : u.ret32;
@@ -198,7 +194,7 @@ elf_getarsym (Elf *elf, size_t *ptr)
 
       /* Now we can allocate the arrays needed to store the index.  */
       size_t ar_sym_len = (n + 1) * sizeof (Elf_Arsym);
-      elf->state.ar.ar_sym = (Elf_Arsym *) malloc (ar_sym_len);
+      elf->state.ar.ar_sym = malloc (ar_sym_len);
       if (elf->state.ar.ar_sym != NULL)
 	{
 	  void *file_data; /* unit32_t[n] or uint64_t[n] */
@@ -216,8 +212,7 @@ elf_getarsym (Elf *elf, size_t *ptr)
 	      file_data = temp_data;
 
 	      ar_sym_len += index_size - n * w;
-	      Elf_Arsym *newp = (Elf_Arsym *) realloc (elf->state.ar.ar_sym,
-						       ar_sym_len);
+	      Elf_Arsym *newp = realloc (elf->state.ar.ar_sym, ar_sym_len);
 	      if (newp == NULL)
 		{
 		  free (elf->state.ar.ar_sym);
@@ -271,7 +266,7 @@ elf_getarsym (Elf *elf, size_t *ptr)
 	      if (index64_p)
 		{
 		  uint64_t tmp = (*u64)[cnt];
-		  if (__BYTE_ORDER == __LITTLE_ENDIAN)
+		  if (BYTE_ORDER == LITTLE_ENDIAN)
 		    tmp = bswap_64 (tmp);
 
 		  arsym[cnt].as_off = tmp;
@@ -291,7 +286,7 @@ elf_getarsym (Elf *elf, size_t *ptr)
 		      goto out;
 		    }
 		}
-	      else if (__BYTE_ORDER == __LITTLE_ENDIAN)
+	      else if (BYTE_ORDER == LITTLE_ENDIAN)
 		arsym[cnt].as_off = bswap_32 ((*u32)[cnt]);
 	      else
 		arsym[cnt].as_off = (*u32)[cnt];

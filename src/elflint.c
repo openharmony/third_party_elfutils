@@ -27,7 +27,6 @@
 #include <fcntl.h>
 #include <gelf.h>
 #include <inttypes.h>
-#include <libintl.h>
 #include <locale.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -3434,7 +3433,7 @@ buffer_pos (Elf_Data *data, const unsigned char *p)
   return p - (const unsigned char *) data->d_buf;
 }
 
-inline size_t
+static inline size_t
 buffer_left (Elf_Data *data, const unsigned char *p)
 {
   return (const unsigned char *) data->d_buf + data->d_size - p;
@@ -3705,7 +3704,7 @@ check_sections (Ebl *ebl, GElf_Ehdr *ehdr)
     return;
 
   /* Allocate array to count references in section groups.  */
-  scnref = (int *) xcalloc (shnum, sizeof (int));
+  scnref = xcalloc (shnum, sizeof (int));
 
   /* Check the zeroth section first.  It must not have any contents
      and the section header must contain nonzero value at most in the
@@ -4102,7 +4101,7 @@ section [%2zu] '%s' has type NOBITS but is read from the file in segment of prog
 			    bad = (databits == NULL
 				   || databits->d_size != shdr->sh_size);
 			    for (size_t idx = 0;
-				 idx < databits->d_size && ! bad;
+				 ! bad && idx < databits->d_size;
 				 idx++)
 			      bad = ((char *) databits->d_buf)[idx] != 0;
 
@@ -4380,6 +4379,13 @@ section [%2d] '%s': unknown core file note type %" PRIu32
 		&& strncmp (data->d_buf + name_offset,
 			    ELF_NOTE_GNU_BUILD_ATTRIBUTE_PREFIX,
 			    strlen (ELF_NOTE_GNU_BUILD_ATTRIBUTE_PREFIX)) == 0)
+	      break;
+	    else
+	      goto unknown_note;
+
+	  case NT_FDO_PACKAGING_METADATA:
+	    if (nhdr.n_namesz == sizeof ELF_NOTE_FDO
+		&& strcmp (data->d_buf + name_offset, ELF_NOTE_FDO) == 0)
 	      break;
 	    else
 	      goto unknown_note;
@@ -4724,7 +4730,10 @@ section [%2zu] '%s' must not be executable\n"),
 	}
 
       if (phdr->p_filesz > phdr->p_memsz
-	  && (phdr->p_memsz != 0 || phdr->p_type != PT_NOTE))
+	  && (phdr->p_memsz != 0
+	      || (phdr->p_type != PT_NOTE
+		  && !(ehdr->e_machine == EM_RISCV
+		       && phdr->p_type == PT_RISCV_ATTRIBUTES))))
 	ERROR (_("\
 program header entry %d: file size greater than memory size\n"),
 	       cnt);

@@ -32,10 +32,8 @@
 #endif
 
 #include <argp.h>
-#include <libintl.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include "system.h"
 #include "libeu.h"
 #include "color.h"
@@ -188,10 +186,8 @@ valid arguments are:\n\
 			    if (name_len == known[i].len
 				&& memcmp (start, known[i].name, name_len) == 0)
 			      {
-				if (asprintf (known[i].varp, "\e[%.*sm",
-					      (int) (env - val), val) < 0)
-				  error (EXIT_FAILURE, errno,
-					 _("cannot allocate memory"));
+				*known[i].varp =
+				  xasprintf ("\e[%.*sm", (int) (env - val), val);
 				break;
 			      }
 			}

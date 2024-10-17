@@ -22,7 +22,9 @@
         "rom": "",
         "ram": "",
         "deps": {
-            "components": [],
+            "components": [
+                "zlib"
+            ],
             "third_party": []
         },
         "build": {

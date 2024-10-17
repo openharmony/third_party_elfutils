@@ -40,7 +40,9 @@ ohos_static_library("libelf_static") {
     "//third_party/elfutils/libelf",
   ]
 
-  deps = [ "//third_party/zlib:libz" ]
+  deps = []
+
+  external_deps = [ "zlib:libz" ]
 
   license_file = "COPYING-LGPLV3"
   subsystem_name = "thirdparty"

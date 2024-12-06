@@ -36,7 +36,7 @@
                 <policyitem type="compatibility" name="LGPLStyleLicense" path="libelf/.*.[h|c]" desc="该软件作为独立进程使用"/>
                 <policyitem type="compatibility" name="LGPLStyleLicense" path="debuginfod/.*" desc="该目录下软件未编译使用"/>
                 <policyitem type="compatibility" name="GPLStyleLicense" path="debuginfod/.*" desc="该目录下软件未编译使用"/>
-                <policyitem type="compatibility" name="GPLStyleLicense" path="src/.*.[h|c]" desc="该目录下软件未编译使用"/>
+                <policyitem type="compatibility" name="GPLStyleLicense" path="src/.*.[h|c|cxx]" desc="该目录下软件未编译使用"/>
                 <policyitem type="compatibility" name="GPLStyleLicense" path="tests/.*.[h|c|sh]" desc="该目录下软件未编译使用"/>
             </policy>
         </policylist>

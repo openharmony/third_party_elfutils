@@ -26,6 +26,8 @@ sources_backends = [
   "//third_party/elfutils/backends/alpha_regs.c",
   "//third_party/elfutils/backends/alpha_retval.c",
   "//third_party/elfutils/backends/alpha_symbol.c",
+  "//third_party/elfutils/backends/arc_init.c",
+  "//third_party/elfutils/backends/arc_symbol.c",
   "//third_party/elfutils/backends/arm_attrs.c",
   "//third_party/elfutils/backends/arm_auxv.c",
   "//third_party/elfutils/backends/arm_cfi.c",
@@ -122,6 +124,14 @@ sources_backends = [
   "//third_party/elfutils/backends/x86_64_retval.c",
   "//third_party/elfutils/backends/x86_64_symbol.c",
   "//third_party/elfutils/backends/x86_64_unwind.c",
+  "//third_party/elfutils/backends/loongarch_cfi.c",
+  "//third_party/elfutils/backends/loongarch_corenote.c",
+  "//third_party/elfutils/backends/loongarch_init.c",
+  "//third_party/elfutils/backends/loongarch_initreg.c",
+  "//third_party/elfutils/backends/loongarch_regs.c",
+  "//third_party/elfutils/backends/loongarch_retval.c",
+  "//third_party/elfutils/backends/loongarch_symbol.c",
+  "//third_party/elfutils/backends/loongarch_unwind.c",
 ]
 
 sources_libcpu = [

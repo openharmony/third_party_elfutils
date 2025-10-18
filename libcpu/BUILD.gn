@@ -1,0 +1,105 @@
+# Copyright (c) 2025 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//build/ohos.gni")
+
+#生成i386_parse.c和 i386_parse.h
+action("i386_parse") {
+  sources = [ "i386_parse.y" ]
+  outputs = [
+    "$target_out_dir/i386_parse.c",
+    "$target_out_dir/i386_parse.h",
+  ]
+  script = "/usr/bin/env"
+  args = [
+    "bison",
+    "-d",
+    "-p",
+    "i386_",
+    "-o",
+    rebase_path(outputs[0], root_build_dir),
+    rebase_path("i386_parse.y", root_build_dir),
+  ]
+}
+
+#生成 i386_lex.c
+action("i386_lex") {
+  sources = [ "i386_lex.l" ]
+  deps = [ ":i386_parse" ]
+  outputs = [ "$target_out_dir/i386_lex.c" ]
+  script = "/usr/bin/env"
+  args = [
+    "flex",
+    "-Pi386_",
+    "-o",
+    rebase_path(outputs[0], root_build_dir),
+    rebase_path("i386_lex.l", root_build_dir),
+  ]
+}
+
+# i386_gendis 可执行文件
+ohos_executable("i386_gendis") {
+  sources = [
+    "$target_out_dir/i386_lex.c",
+    "$target_out_dir/i386_parse.c",
+    "i386_gendis.c",
+  ]
+
+  include_dirs = [
+    "$target_out_dir",
+    "//third_party/elfutils/lib",
+    "//third_party/elfutils/libcpu",
+    get_label_info(":gen_mne", "target_out_dir"),
+  ]
+
+  deps = [
+    ":i386_lex",
+    ":i386_parse",
+    ":gen_mne",
+    "//third_party/elfutils/lib:libeu",
+  ]
+
+  cflags_c = [
+    "-Wno-unused-label",
+    "-Wno-unused-function",
+    "-Wno-sign-compare",
+    "-Wno-implicit-fallthrough",
+  ]
+
+  subsystem_name = "thirdparty"
+  part_name = "elfutils"
+}
+
+action("gen_mne") {
+  outputs = [ "$target_out_dir/i386.mnemonics" ]
+
+  script = "gen_dis.sh"
+  args = [
+    "false",
+    rebase_path("$target_out_dir", root_build_dir),
+    rebase_path("//third_party/elfutils/libcpu/defs/i386", root_build_dir),
+  ]
+}
+
+action("gen_dis") {
+  toolchain_name = get_label_info("$host_toolchain", "name")
+  deps = [ ":i386_gendis($host_toolchain)" ]
+  outputs = [ "$target_out_dir/i386_dis.h" ]
+  script = "gen_dis.sh"
+  args = [
+    "true",
+    rebase_path("$target_out_dir", root_build_dir),
+    rebase_path("//third_party/elfutils/libcpu/defs/i386", root_build_dir),
+    "$toolchain_name/thirdparty/elfutils/i386_gendis",
+  ]
+}

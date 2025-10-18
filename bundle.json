@@ -29,7 +29,15 @@
         },
         "build": {
             "sub_component": [],
-            "inner_kits": [],
+            "inner_kits": [
+                {
+                    "header": {
+                        "header_base": "third_party/elfutils",
+                        "header_files": []
+                    },
+                    "name": "//third_party/elfutils:libdw_static"
+                }
+            ],
             "test": []
         }
     }

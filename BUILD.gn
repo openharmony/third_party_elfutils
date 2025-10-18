@@ -25,7 +25,20 @@ config("elfutils_defaults") {
 }
 
 config("elfutils_public_config") {
-  include_dirs = [ "include" ]
+  include_dirs = [
+    "include",
+    "$target_out_dir",
+    "$target_out_dir/elfutils"
+  ]
+}
+
+copy("copy_header_file") {
+  sources = [
+    "//third_party/elfutils/libdwfl/libdwfl.h",
+    "//third_party/elfutils/libdw/libdw.h",
+    "//third_party/elfutils/libdw/dwarf.h",
+  ]
+  outputs = [ "$target_out_dir/elfutils/{{source_file_part}}" ]
 }
 
 # Build libelf
@@ -70,11 +83,17 @@ ohos_static_library("libdw_static") {
     "//third_party/elfutils/libdwelf",
     "//third_party/elfutils/libdwfl",
     "//third_party/elfutils/libebl",
+    get_label_info("//third_party/elfutils/libcpu:gen_dis", "target_out_dir"),
   ]
 
   public_configs = [ ":elfutils_public_config" ]
 
-  deps = [ ":libelf_static" ]
+  deps = [
+    ":libelf_static",
+    "//third_party/elfutils/libcpu:gen_dis",
+    "//third_party/elfutils/libcpu:i386_gendis",
+    ":copy_header_file",
+  ]
 
   license_file = "COPYING-LGPLV3"
   subsystem_name = "thirdparty"

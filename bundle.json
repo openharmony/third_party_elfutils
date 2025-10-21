@@ -35,7 +35,8 @@
                         "header_base": "third_party/elfutils",
                         "header_files": []
                     },
-                    "name": "//third_party/elfutils:libdw_static"
+                    "name": "//third_party/elfutils:libdw_static",
+                    "host_only": true
                 }
             ],
             "test": []

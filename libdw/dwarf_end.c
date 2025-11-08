@@ -41,6 +41,17 @@
 
 
 static void
+dwarf_package_index_free (Dwarf_Package_Index *index)
+{
+  if (index != NULL)
+    {
+      free (index->debug_info_offsets);
+      free (index);
+    }
+}
+
+
+static void
 noop_free (void *arg __attribute__ ((unused)))
 {
 }
@@ -50,14 +61,17 @@ static void
 cu_free (void *arg)
 {
   struct Dwarf_CU *p = (struct Dwarf_CU *) arg;
-
-  tdestroy (p->locs, noop_free);
+  eu_search_tree_fini (&p->locs_tree, noop_free);
 
   /* Only free the CU internals if its not a fake CU.  */
-  if(p != p->dbg->fake_loc_cu && p != p->dbg->fake_loclists_cu
+  if (p != p->dbg->fake_loc_cu && p != p->dbg->fake_loclists_cu
      && p != p->dbg->fake_addr_cu)
     {
       Dwarf_Abbrev_Hash_free (&p->abbrev_hash);
+      rwlock_fini (p->abbrev_lock);
+      rwlock_fini (p->split_lock);
+      mutex_fini (p->src_lock);
+      mutex_fini (p->str_off_base_lock);
 
       /* Free split dwarf one way (from skeleton to split).  */
       if (p->unit_type == DW_UT_skeleton
@@ -66,7 +80,9 @@ cu_free (void *arg)
 	  /* The fake_addr_cu might be shared, only release one.  */
 	  if (p->dbg->fake_addr_cu == p->split->dbg->fake_addr_cu)
 	    p->split->dbg->fake_addr_cu = NULL;
-	  INTUSE(dwarf_end) (p->split->dbg);
+	  /* There is only one DWP file. We free it later.  */
+	  if (p->split->dbg != p->dbg->dwp_dwarf)
+	    INTUSE(dwarf_end) (p->split->dbg);
 	}
     }
 }
@@ -77,6 +93,9 @@ dwarf_end (Dwarf *dwarf)
 {
   if (dwarf != NULL)
     {
+      dwarf_package_index_free (dwarf->tu_index);
+      dwarf_package_index_free (dwarf->cu_index);
+
       if (dwarf->cfi != NULL)
 	/* Clean up the CFI cache.  */
 	__libdw_destroy_frame_cache (dwarf->cfi);
@@ -86,17 +105,17 @@ dwarf_end (Dwarf *dwarf)
       /* The search tree for the CUs.  NB: the CU data itself is
 	 allocated separately, but the abbreviation hash tables need
 	 to be handled.  */
-      tdestroy (dwarf->cu_tree, cu_free);
-      tdestroy (dwarf->tu_tree, cu_free);
+      eu_search_tree_fini (&dwarf->cu_tree, cu_free);
+      eu_search_tree_fini (&dwarf->tu_tree, cu_free);
 
       /* Search tree for macro opcode tables.  */
-      tdestroy (dwarf->macro_ops, noop_free);
+      eu_search_tree_fini (&dwarf->macro_ops_tree, noop_free);
 
       /* Search tree for decoded .debug_lines units.  */
-      tdestroy (dwarf->files_lines, noop_free);
+      eu_search_tree_fini (&dwarf->files_lines_tree, noop_free);
 
       /* And the split Dwarf.  */
-      tdestroy (dwarf->split_tree, noop_free);
+      eu_search_tree_fini (&dwarf->split_tree, noop_free);
 
       /* Free the internally allocated memory.  */
       for (size_t i = 0; i < dwarf->mem_stacks; i++)
@@ -112,6 +131,8 @@ dwarf_end (Dwarf *dwarf)
       if (dwarf->mem_tails != NULL)
         free (dwarf->mem_tails);
       pthread_rwlock_destroy (&dwarf->mem_rwl);
+      mutex_fini (dwarf->dwarf_lock);
+      mutex_fini (dwarf->macro_lock);
 
       /* Free the pubnames helper structure.  */
       free (dwarf->pubnames_sets);
@@ -142,6 +163,12 @@ dwarf_end (Dwarf *dwarf)
 	{
 	  INTUSE(dwarf_end) (dwarf->alt_dwarf);
 	  close (dwarf->alt_fd);
+	}
+
+      if (dwarf->dwp_fd != -1)
+	{
+	  INTUSE(dwarf_end) (dwarf->dwp_dwarf);
+	  close (dwarf->dwp_fd);
 	}
 
       /* The cached path and dir we found the Dwarf ELF file in.  */

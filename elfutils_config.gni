@@ -132,6 +132,19 @@ sources_backends = [
   "//third_party/elfutils/backends/loongarch_retval.c",
   "//third_party/elfutils/backends/loongarch_symbol.c",
   "//third_party/elfutils/backends/loongarch_unwind.c",
+  "//third_party/elfutils/backends/hexagon_init.c",
+  "//third_party/elfutils/backends/hexagon_reloc.def",
+  "//third_party/elfutils/backends/hexagon_symbol.c",
+  "//third_party/elfutils/backends/libebl_PERF_FLAGS.h",
+  "//third_party/elfutils/backends/mips_cfi.c",
+  "//third_party/elfutils/backends/mips_corenote.c",
+  "//third_party/elfutils/backends/mips_init.c",
+  "//third_party/elfutils/backends/mips_initreg.c",
+  "//third_party/elfutils/backends/mips_regs.c",
+  "//third_party/elfutils/backends/mips_reloc.def",
+  "//third_party/elfutils/backends/mips_retval.c",
+  "//third_party/elfutils/backends/mips_symbol.c",
+  "//third_party/elfutils/backends/mips_unwind.c",
 ]
 
 sources_libcpu = [
@@ -142,6 +155,7 @@ sources_libcpu = [
 ]
 
 sources_libdw = [
+  "//third_party/elfutils/libdw/dwarf_cu_dwp_section_info.c",
   "//third_party/elfutils/libdw/cfi.c",
   "//third_party/elfutils/libdw/cie.c",
   "//third_party/elfutils/libdw/dwarf_abbrev_hash.c",
@@ -281,7 +295,17 @@ sources_libdwelf = [
   "//third_party/elfutils/libdwelf/dwelf_strtab.c",
 ]
 
+sources_libdwfl_stacktrace = [
+  "//third_party/elfutils/libdwfl_stacktrace/dwflst_perf_frame.c",
+  "//third_party/elfutils/libdwfl_stacktrace/dwflst_tracker_dwfltab.c",
+  "//third_party/elfutils/libdwfl_stacktrace/dwflst_tracker_elftab.c",
+  "//third_party/elfutils/libdwfl_stacktrace/dwflst_tracker_find_elf.c",
+  "//third_party/elfutils/libdwfl_stacktrace/libdwfl_stacktrace_next_prime.c",
+  "//third_party/elfutils/libdwfl_stacktrace/dwflst_process_tracker.c",
+]
+
 sources_libdwfl = [
+  "//third_party/elfutils/libdwfl/dwfl_set_sysroot.c",
   "//third_party/elfutils/libdwfl/core-file.c",
   "//third_party/elfutils/libdwfl/cu.c",
   "//third_party/elfutils/libdwfl/derelocate.c",

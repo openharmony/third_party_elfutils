@@ -72,6 +72,7 @@ ohos_static_library("libdw_static") {
   sources += sources_libdwelf
   sources += sources_libdwfl
   sources += sources_libebl
+  sources += sources_libdwfl_stacktrace
 
   include_dirs = [
     "//third_party/elfutils",
@@ -83,16 +84,22 @@ ohos_static_library("libdw_static") {
     "//third_party/elfutils/libdwelf",
     "//third_party/elfutils/libdwfl",
     "//third_party/elfutils/libebl",
+    "//third_party/elfutils/libdwfl_stacktrace",
     get_label_info("//third_party/elfutils/libcpu:gen_dis", "target_out_dir"),
   ]
 
   public_configs = [ ":elfutils_public_config" ]
+
+  cflags_c = [
+    "-Wno-typedef-redefinition",
+  ]
 
   deps = [
     ":libelf_static",
     "//third_party/elfutils/libcpu:gen_dis",
     "//third_party/elfutils/libcpu:i386_gendis",
     ":copy_header_file",
+    "//third_party/elfutils/lib:libeu",
   ]
 
   license_file = "COPYING-LGPLV3"

@@ -1,6 +1,7 @@
 /* Declarations for common convenience functions.
    Copyright (C) 2006-2011 Red Hat, Inc.
    Copyright (C) 2022 Mark J. Wielaard <mark@klomp.org>
+   Copyright (C) 2023 Khem Raj.
    This file is part of elfutils.
 
    This file is free software; you can redistribute it and/or modify
@@ -30,9 +31,15 @@
 #ifndef LIB_SYSTEM_H
 #define LIB_SYSTEM_H	1
 
-#include <config.h>
+/* Prevent double inclusion of config.h, config.h includes eu-config.h.  */
+#ifdef HAVE_CONFIG_H
+#ifndef EU_CONFIG_H
+# include <config.h>
+#endif
+#endif
 
 #include <errno.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
@@ -114,6 +121,32 @@ static inline int
 startswith (const char *str, const char *prefix)
 {
   return strncmp (str, prefix, strlen (prefix)) == 0;
+}
+
+/* Return TRUE if STR[FROM] is a valid string with a zero terminator
+   at or before STR[TO - 1].  Note FROM is an index into the STR
+   array, while TO is the maximum size of the STR array.  This
+   function returns FALSE when TO is zero or FROM >= TO.  */
+static inline bool
+validate_str (const char *str, size_t from, size_t to)
+{
+#if HAVE_DECL_MEMRCHR
+  // Check end first, which is likely a zero terminator,
+  // to prevent function call
+  return (to > 0
+	  && (str[to - 1] == '\0'
+	      || (to > from
+		  && memrchr (&str[from], '\0', to - from - 1) != NULL)));
+#else
+  do {
+    if (to <= from)
+      return false;
+
+    to--;
+  } while (str[to]);
+
+  return true;
+#endif
 }
 
 /* A special gettext function we use if the strings are too short.  */
@@ -210,5 +243,18 @@ extern char *__cxa_demangle (const char *mangled_name, char *output_buffer,
 #define eu_static_assert(expr)						\
   extern int never_defined_just_used_for_checking[(expr) ? 1 : -1]	\
     __attribute__ ((unused))
+
+/* We really want a basename implementation that doesn't modify the
+   input argument.  Normally you get that from string.h with _GNU_SOURCE
+   define.  But some libc implementations don't define it and other
+   define it, but provide an implementation that still modifies the
+   argument.  So define our own and poison a bare basename symbol.  */
+static inline const char *
+xbasename(const char *s)
+{
+  const char *p = strrchr(s, '/');
+  return p ? p+1 : s;
+}
+#pragma GCC poison basename
 
 #endif /* system.h */

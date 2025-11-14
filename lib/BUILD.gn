@@ -38,6 +38,7 @@ ohos_static_library("libeu") {
     "xmalloc.c",
     "xstrdup.c",
     "xstrndup.c",
+    "eu-search.c",
   ]
 
   public_configs = [ ":libeu_config" ]

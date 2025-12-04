@@ -34,6 +34,7 @@ config("elfutils_public_config") {
 
 copy("copy_header_file") {
   sources = [
+    "//third_party/elfutils/libdwelf/libdwelf.h",
     "//third_party/elfutils/libdwfl/libdwfl.h",
     "//third_party/elfutils/libdw/libdw.h",
     "//third_party/elfutils/libdw/dwarf.h",

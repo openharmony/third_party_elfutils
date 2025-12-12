@@ -1,8 +1,8 @@
 [
   {
     "Name": "elfutils",
-    "License": "LGPL-2.1, LGPL-3.0, GPL-2.0",
-    "License File": "COPYING-GPLV2",
+    "License": "LGPL V3.0",
+    "License File": "COPYING-LGPLV3",
     "Version Number": "0.193",
     "Owner": "zhanghaibo0@huawei.com",
     "Upstream URL": "https://sourceware.org/elfutils/",
